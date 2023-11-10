@@ -1,17 +1,41 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 public class Main {
+
     public static void main(String[] args) {
-        // Press Opt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        testNQueens();
+    }
+    //test
 
-        // Press Ctrl+R or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+    public static void testNQueens() {
+        Node initialNode = new Node();
+        System.out.println("Initial State:");
+        initialNode.displayBoard();
+        System.out.println("Initial Heuristic: " + initialNode.getH());
 
-            // Press Ctrl+D to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Cmd+F8.
-            System.out.println("i = " + i);
+        System.out.println("\nRunning Genetic Algorithm:");
+        geneticAlgorithm(initialNode);
+    }
+
+    public static void geneticAlgorithm(Node initialNode) {
+        int generations = 1000; // Số lượng thế hệ
+        int generationCount = 0;
+
+        while (generationCount < generations && initialNode.getH() > 0) {
+            List<Node> candidates = initialNode.generateAllCandidates();
+            Collections.sort(candidates, Comparator.comparingInt(Node::getH));
+
+            if (candidates.get(0).getH() < initialNode.getH()) {
+                initialNode = candidates.get(0);
+            }
+
+            generationCount++;
         }
+
+        System.out.println("Final State after Genetic Algorithm:");
+        initialNode.displayBoard();
+        System.out.println("Final Heuristic: " + initialNode.getH());
     }
 }
