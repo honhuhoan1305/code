@@ -1,3 +1,4 @@
+package queens;
 
 import java.util.*;
 

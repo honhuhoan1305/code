@@ -1,3 +1,5 @@
+package queens;
+
 public class Queen {
     private int row;
     private int column;
@@ -38,3 +40,4 @@ public class Queen {
         return "(" + row + ", " + column + ")";
     }
 }
+
